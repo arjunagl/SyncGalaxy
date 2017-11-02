@@ -113,3 +113,4 @@ export const SampleStores = [
         Hours: '9am - 9pm',
         Image: null
     }];
+    
