@@ -1,14 +1,3 @@
-Deploy
-aws cloudformation deploy --template-file .\cloudFormation.yaml --stack-name Sync-Galaxy-Stack  --capabilities CAPABILITY_IAM
-
-Update
-aws cloudformation update-stack --stack-name Sync-Galaxy-Stack --template-body file://cloudFormation.yaml --capabilities CAPABILITY_IAM
-
-Delete
-aws cloudformation delete-stack --stack-name Sync-Galaxy-Stack
-
-Fetch Errors
-aws cloudformation describe-stack-events --stack-name Sync-Galaxy-Stack
 
 --------------Deploying to aws, this works
 //Create the bucket
@@ -19,6 +8,9 @@ aws cloudformation package --template-file build/storesSAM.yaml --output-templat
 
 //Deploying the pakcage
 aws cloudformation deploy --template-file build/storesServerless-output.yaml --stack-name SyncGalaxy-Stack --capabilities CAPABILITY_IAM
+
+
+------------------------------------
 
 //To get the list of Errors
 aws cloudformation describe-stack-events --stack-name SyncGalaxy-Stack
