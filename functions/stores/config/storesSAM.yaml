@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  GetFunction:
+  GetStores:
     Type: AWS::Serverless::Function
     Properties:
       Handler: storesHandler.get
@@ -13,5 +13,5 @@ Resources:
         ProxyApiRoot:
           Type: Api
           Properties:
-            Path: /stores/get
-            Method: GET
+            Path: /SyncGalaxy/Stores
+            Method: get
