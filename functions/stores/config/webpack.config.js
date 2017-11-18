@@ -22,12 +22,7 @@ module.exports = {
             'config/storesSAM.yaml'
         ]),
         new webpack.NamedModulesPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({
-            "process.env": {
-                "BUILD_TARGET": JSON.stringify('server')
-            }
-        }),
+        new webpack.NoEmitOnErrorsPlugin(),        
     ],
     output: {
         libraryTarget: 'commonjs',

@@ -1,0 +1,58 @@
+{
+    "SyncGalaxy-tblStores": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St1"
+                    },
+                    "Name": {
+                        "S": "Coles"
+                    },
+                    "Location": {
+                        "S": "Mount Waverley"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St2"
+                    },
+                    "Name": {
+                        "S": "Woolworths"
+                    },
+                    "Location": {
+                        "S": "Mount Waverley"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St3"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "Mount Waverley"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -9,8 +9,15 @@ aws cloudformation package --template-file build/storesSAM.yaml --output-templat
 //Deploying the pakcage
 aws cloudformation deploy --template-file build/storesServerless-output.yaml --stack-name SyncGalaxy-Stack --capabilities CAPABILITY_IAM
 
-
-------------------------------------
+//Inserting sample data
+ aws dynamodb batch-write-item --request-items file://scripts/sampleData.json
 
 //To get the list of Errors
 aws cloudformation describe-stack-events --stack-name SyncGalaxy-Stack
+
+-------------------------------------------------------------------------
+
+aws s3 rb s3://SyncGalaxy-bucket --force 
+
+
+aws cloudformation delete-stack --stack-name SyncGalaxy-Stack

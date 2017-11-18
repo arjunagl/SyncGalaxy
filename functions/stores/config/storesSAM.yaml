@@ -4,8 +4,10 @@ Resources:
   GetStores:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: SyncGalaxy-fnStores
       Handler: storesHandler.get
       Runtime: nodejs6.10
+      Policies: AmazonDynamoDBReadOnlyAccess
       Environment:
         Variables: 
           S3_BUCKET: SyncGalaxy-bucket
@@ -15,3 +17,22 @@ Resources:
           Properties:
             Path: /SyncGalaxy/Stores
             Method: get
+      Environment:
+        Variables:
+          StoresTable: SyncGalaxy-tblStores
+  Stores:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: SyncGalaxy-tblStores
+      AttributeDefinitions: 
+        - AttributeName: Id
+          AttributeType: S        
+      KeySchema: 
+        - AttributeName: Id
+          KeyType: HASH   
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5             
+      StreamSpecification:
+        StreamViewType: KEYS_ONLY
+        
