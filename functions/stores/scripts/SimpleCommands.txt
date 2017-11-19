@@ -1,23 +1,26 @@
 
 --------------Deploying to aws, this works
 //Create the bucket
-aws s3 mb s3://SyncGalaxy-bucket
+aws s3 mb s3://SyncGalaxy-Stores-bucket
 
 //Create the package
-aws cloudformation package --template-file build/storesSAM.yaml --output-template-file build/storesServerless-output.yaml --s3-bucket SyncGalaxy-bucket
+aws cloudformation package --template-file build/storesSAM.yaml --output-template-file build/storesServerless-output.yaml --s3-bucket SyncGalaxy-Stores-bucket
 
 //Deploying the pakcage
-aws cloudformation deploy --template-file build/storesServerless-output.yaml --stack-name SyncGalaxy-Stack --capabilities CAPABILITY_IAM
+aws cloudformation deploy --template-file build/storesServerless-output.yaml --stack-name SyncGalaxy-Stores-Stack --capabilities CAPABILITY_IAM
+
+ //Upload the images for the stores
+ aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key coles.svg --body images/coles.svg --tagging  "store=coles location=mountwaverley"
 
 //Inserting sample data
  aws dynamodb batch-write-item --request-items file://scripts/sampleData.json
-
+ 
 //To get the list of Errors
-aws cloudformation describe-stack-events --stack-name SyncGalaxy-Stack
+aws cloudformation describe-stack-events --stack-name SyncGalaxy-Stores-Stack
 
 -------------------------------------------------------------------------
 
 aws s3 rb s3://SyncGalaxy-bucket --force 
 
 
-aws cloudformation delete-stack --stack-name SyncGalaxy-Stack
+aws cloudformation delete-stack --stack-name SyncGalaxy-Stores--Stack

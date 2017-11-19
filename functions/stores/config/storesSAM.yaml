@@ -10,7 +10,7 @@ Resources:
       Policies: AmazonDynamoDBReadOnlyAccess
       Environment:
         Variables: 
-          S3_BUCKET: SyncGalaxy-bucket
+          S3_BUCKET: SyncGalaxy-Stores-bucket
       Events:
         ProxyApiRoot:
           Type: Api
@@ -19,11 +19,11 @@ Resources:
             Method: get
       Environment:
         Variables:
-          StoresTable: SyncGalaxy-tblStores
+          StoresTable: SyncGalaxy-Stores-tblStores
   Stores:
     Type: AWS::DynamoDB::Table
     Properties: 
-      TableName: SyncGalaxy-tblStores
+      TableName: SyncGalaxy-Stores-tblStores
       AttributeDefinitions: 
         - AttributeName: Id
           AttributeType: S        
