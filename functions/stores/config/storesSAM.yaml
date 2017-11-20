@@ -11,15 +11,13 @@ Resources:
       Environment:
         Variables: 
           S3_BUCKET: SyncGalaxy-Stores-bucket
+          StoresTable: SyncGalaxy-Stores-tblStores
       Events:
         ProxyApiRoot:
           Type: Api
           Properties:
             Path: /SyncGalaxy/Stores
             Method: get
-      Environment:
-        Variables:
-          StoresTable: SyncGalaxy-Stores-tblStores
   Stores:
     Type: AWS::DynamoDB::Table
     Properties: 

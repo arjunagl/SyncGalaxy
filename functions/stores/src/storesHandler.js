@@ -7,17 +7,19 @@ module.exports.get = (event, context, callback) => {
   console.log('table name');
   const tableName = process.env.StoresTable;
 
-  // const AWS = window.AWS;
   AWS.config.update({ region: process.env.AWS_DEFAULT_REGION });
+
+  // DynamoDB configuration
   var docClient = new AWS.DynamoDB.DocumentClient();
+
 
   var params = {
     TableName: process.env.StoresTable,
     ProjectionExpression: "#StoreId, Hours, #StoreLocation, #StoreName",
     ExpressionAttributeNames: {
       "#StoreId": "Id",
-      "#StoreLocation":"Location",
-      "#StoreName":"Name",
+      "#StoreLocation": "Location",
+      "#StoreName": "Name",
     }
   };
 
@@ -28,8 +30,25 @@ module.exports.get = (event, context, callback) => {
       console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
     } else {
       console.log("Scan succeeded.");
+
+      // S3 client configuration
+      var s3 = new AWS.S3();
+      let s3BucketParams = {
+        Bucket: process.env.S3_BUCKET,
+        Key: ''
+      };
+
       stores.Items.forEach((store) => {
-        console.log(store.Name);
+        console.log(`Loading image for: ${store.Name}`);
+        s3BucketParams.Key = `${store.Name}.svg`;
+        s3.getObject(params, (err, data) => {
+          if (err) {
+            console.log(err, err.stack);
+          } // an error occurred
+          else {
+            console.log(data);
+          }
+        });
       });
 
       const response = {
