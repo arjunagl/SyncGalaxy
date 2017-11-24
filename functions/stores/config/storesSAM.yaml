@@ -5,9 +5,9 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: SyncGalaxy-fnStores
-      Handler: storesHandler.get
+      Handler: storesHandler.getStores
       Runtime: nodejs6.10
-      Policies: AmazonDynamoDBReadOnlyAccess
+      Policies: [AmazonDynamoDBReadOnlyAccess, AmazonS3ReadOnlyAccess]
       Environment:
         Variables: 
           S3_BUCKET: SyncGalaxy-Stores-bucket

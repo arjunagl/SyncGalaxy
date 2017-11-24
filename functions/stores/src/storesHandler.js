@@ -1,17 +1,13 @@
-'use strict';
-// import 'aws-sdk/dist/aws-sdk';
 const AWS = require("aws-sdk");
-import { SampleStores } from './sampleData';
 
-module.exports.get = (event, context, callback) => {
-  console.log('table name');
+const getStores = (event, context, callback) => {
   const tableName = process.env.StoresTable;
+  console.log(`tableName = ${tableName}`);
 
   AWS.config.update({ region: process.env.AWS_DEFAULT_REGION });
 
   // DynamoDB configuration
   var docClient = new AWS.DynamoDB.DocumentClient();
-
 
   var params = {
     TableName: process.env.StoresTable,
@@ -23,8 +19,6 @@ module.exports.get = (event, context, callback) => {
     }
   };
 
-
-  console.log("Scanning Stores table.");
   docClient.scan(params, (err, stores) => {
     if (err) {
       console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
@@ -32,39 +26,45 @@ module.exports.get = (event, context, callback) => {
       console.log("Scan succeeded.");
 
       // S3 client configuration
-      var s3 = new AWS.S3();
+      var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
       let s3BucketParams = {
         Bucket: process.env.S3_BUCKET,
         Key: ''
       };
 
+      let imageLoads = [];
       stores.Items.forEach((store) => {
-        console.log(`Loading image for: ${store.Name}`);
-        s3BucketParams.Key = `${store.Name}.svg`;
-        s3.getObject(params, (err, data) => {
-          if (err) {
-            console.log(err, err.stack);
-          } // an error occurred
-          else {
-            console.log(data);
-          }
-        });
+        s3BucketParams.Key = `${store.Name.toLowerCase()}.svg`;
+        imageLoads.push(new Promise((resolve, reject) => {
+          s3.getObject(s3BucketParams, (err, data) => {
+            if (err) {
+              console.log(err, err.stack);
+            } // an error occurred
+            else {
+              store.Image = data.Body;
+              resolve();
+            }
+          });
+        }));
       });
 
-      const response = {
-        statusCode: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*" // Required for CORS support to work
-        },
-        body: JSON.stringify({
-          stores: stores,
-          input: event,
-        }),
-      };
+      Promise.all(imageLoads).then(() => {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*" // Required for CORS support to work
+          },
+          body: JSON.stringify({
+            stores: stores.Items,
+            input: event,
+          }),
+        };
 
-      callback(null, response);
+        callback(null, response);
+      });
+
     }
   });
 };
 
-
+export { getStores };
