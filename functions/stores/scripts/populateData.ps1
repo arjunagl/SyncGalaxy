@@ -1,1 +1,0 @@
-aws dynamodb put-item --table-name abcd --item file://item.jsonaws dynamodb put-item --table-name SyncGalaxy-Stack-Stores-10J9IHUHWTTE0 --item file://scripts/sampleData.json

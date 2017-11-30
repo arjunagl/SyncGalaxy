@@ -11,9 +11,9 @@ aws cloudformation deploy --template-file build/storesServerless-output.yaml --s
 
  //Upload the images for the stores
 //aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key coles.svg --body images/c.svg --tagging  "store=coles&location=waverley"
-aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key coles.svg --body images/c.svg --tagging  "store=coles"
-aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key woolworths.svg --body images/w.svg --tagging  "store=woolworths"
-aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key aldi.svg --body images/a.svg --tagging  "store=aldi"
+aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key coles.svg --body images/c.svg 
+aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key woolworths.svg --body images/w.svg
+aws s3api put-object --bucket SyncGalaxy-Stores-bucket --key aldi.svg --body images/a.svg 
 
 //Inserting sample data
 aws dynamodb batch-write-item --request-items file://scripts/sampleData.json
@@ -24,6 +24,4 @@ aws cloudformation describe-stack-events --stack-name SyncGalaxy-Stores-Stack
 -------------------------------------------------------------------------
 
 aws s3 rb s3://SyncGalaxy-Stores-bucket --force 
-
-
-aws cloudformation delete-stack --stack-name SyncGalaxy-Stores--Stack
+aws cloudformation delete-stack --stack-name SyncGalaxy-Stores-Stack

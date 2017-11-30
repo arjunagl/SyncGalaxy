@@ -13,10 +13,15 @@ Resources:
           S3_BUCKET: SyncGalaxy-Stores-bucket
           StoresTable: SyncGalaxy-Stores-tblStores
       Events:
-        ProxyApiRoot:
+        GetStores:
           Type: Api
           Properties:
             Path: /SyncGalaxy/Stores
+            Method: get      
+        GetStoresByName:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/Stores/{storeName}
             Method: get
   Stores:
     Type: AWS::DynamoDB::Table
@@ -24,13 +29,13 @@ Resources:
       TableName: SyncGalaxy-Stores-tblStores
       AttributeDefinitions: 
         - AttributeName: Id
-          AttributeType: S        
+          AttributeType: S   
       KeySchema: 
         - AttributeName: Id
           KeyType: HASH   
       ProvisionedThroughput: 
         ReadCapacityUnits: 5
-        WriteCapacityUnits: 5             
+        WriteCapacityUnits: 5       
       StreamSpecification:
         StreamViewType: KEYS_ONLY
         
