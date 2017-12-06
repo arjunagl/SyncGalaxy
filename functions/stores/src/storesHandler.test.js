@@ -1,7 +1,6 @@
 var AWSMock = require('aws-sdk-mock');
-// const AWS = require("aws-sdk");
 import { getStores } from './storesHandler';
-import { SampleStores } from './sampleData';
+import { SampleStores } from './sampleStores';
 import sinon from 'sinon';
 
 describe('storesHandler', () => {

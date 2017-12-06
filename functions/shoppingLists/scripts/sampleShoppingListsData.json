@@ -1,0 +1,49 @@
+{
+    "SyncGalaxy-ShoppingLists-tblShoppingLists": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "Sl1"
+                    },
+                    "Name": {
+                        "S": "Groceries"
+                    },
+                    "User": {
+                        "S": "albert"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "Sl2"
+                    },
+                    "Name": {
+                        "S": "Vegetables"
+                    },
+                    "User": {
+                        "S": "albert"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "Sl3"
+                    },
+                    "Name": {
+                        "S": "Fruits"
+                    },
+                    "User": {
+                        "S": "albert"
+                    }
+                }
+            }
+        }
+    ]
+}

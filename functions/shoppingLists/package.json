@@ -1,11 +1,11 @@
 {
-  "name": "stores",
+  "name": "shoppinglists",
   "version": "1.0.0",
   "description": "",
   "main": "handler.js",
   "scripts": {
     "test": "jest --watch",
-    "build": "webpack --config config/stores.webpack.config.js --progress"
+    "build": "webpack --config config/shoppingLists.webpack.config.js --progress"
   },
   "author": "",
   "license": "ISC",

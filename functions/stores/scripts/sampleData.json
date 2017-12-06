@@ -53,6 +53,240 @@
                     }
                 }
             }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St4"
+                    },
+                    "Name": {
+                        "S": "Coles"
+                    },
+                    "Location": {
+                        "S": "Chadstone"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St5"
+                    },
+                    "Name": {
+                        "S": "Woolworths"
+                    },
+                    "Location": {
+                        "S": "Chadstone"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St6"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "Chadstone"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St7"
+                    },
+                    "Name": {
+                        "S": "Coles"
+                    },
+                    "Location": {
+                        "S": "Filnders"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St8"
+                    },
+                    "Name": {
+                        "S": "Woolworths"
+                    },
+                    "Location": {
+                        "S": "Filnders"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St9"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "Filnders"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St10"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "Chadstone"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St11"
+                    },
+                    "Name": {
+                        "S": "Coles"
+                    },
+                    "Location": {
+                        "S": "East Malvern"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St12"
+                    },
+                    "Name": {
+                        "S": "Woolworths"
+                    },
+                    "Location": {
+                        "S": "East Malvern"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St13"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "East Malvern"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St14"
+                    },
+                    "Name": {
+                        "S": "Coles"
+                    },
+                    "Location": {
+                        "S": "The Glen"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St15"
+                    },
+                    "Name": {
+                        "S": "Woolworths"
+                    },
+                    "Location": {
+                        "S": "The Glen"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "St16"
+                    },
+                    "Name": {
+                        "S": "ALDI"
+                    },
+                    "Location": {
+                        "S": "The Glen"
+                    },
+                    "Hours": {
+                        "S": "9am - 9pm"
+                    }
+                }
+            }
         }
     ]
 }
