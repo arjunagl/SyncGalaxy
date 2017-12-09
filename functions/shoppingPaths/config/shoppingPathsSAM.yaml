@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ShoppingPaths:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: SyncGalaxy-fnShoppingPaths
+      Handler: shoppingPathsHandler.getShoppingPaths
+      Runtime: nodejs6.10
+      Policies: [AmazonDynamoDBReadOnlyAccess, AmazonS3ReadOnlyAccess]
+      Environment:
+        Variables: 
+          S3_BUCKET: SyncGalaxy-ShoppingPaths-bucket
+          ShoppingPathsTable: SyncGalaxy-ShoppingPaths-tblShoppingPaths
+      Events:
+        GetShoppingPaths:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/ShoppingPaths
+            Method: get      
+  ShoppingPathsTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: SyncGalaxy-ShoppingPaths-tblShoppingPaths
+      AttributeDefinitions: 
+        - AttributeName: Id
+          AttributeType: S   
+      KeySchema: 
+        - AttributeName: Id
+          KeyType: HASH   
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5       
+      StreamSpecification:
+        StreamViewType: KEYS_ONLY
+        

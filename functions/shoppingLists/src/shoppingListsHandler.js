@@ -35,7 +35,7 @@ const getShoppingLists = (event, context, callback) => {
                 }),
             };
             callback(null, response);
-        };
+        }
     });
 
 
