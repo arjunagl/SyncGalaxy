@@ -1,5 +1,5 @@
 import { GraphQLBoolean, GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } from 'graphql'
-import ShoppingItemType from './ShoppingItem';
+import ShoppingItemType from './ShoppingItemType';
 
 const ShoppingPathType = new GraphQLObjectType({
     name: 'ShoppingPath',

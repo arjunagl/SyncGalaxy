@@ -1,1 +1,1 @@
-aws dynamodb batch-write-item --request-items file://scripts/sampleShoppingListsData.json
+aws dynamodb batch-write-item --request-items file://scripts/sampleShoppingPathsData.json

@@ -1,32 +1,30 @@
-const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: [
-        './src/shoppingPathsHandler'
-    ],
+    entry: {
+        shoppingPathsHandler: './src/shoppingPathsHandler'
+    },
     watch: false,
     target: 'node',
-    externals: [nodeExternals()],
+    externals: [nodeExternals({
+        whitelist: ['graphql', 'iterall']
+    })],
     module: {
         rules: [{
             test: /\.js?$/,
-            use: 'babel-loader',
-            exclude: /node_modules/
+            use: 'babel-loader'
         }]
     },
-    plugins: [
+    plugins: [        
         new CopyWebpackPlugin([
             'config/shoppingPathsSAM.yaml'
-        ]),
-        new webpack.NamedModulesPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),        
+        ])
     ],
     output: {
         libraryTarget: 'commonjs',
         path: path.join(__dirname, '../build'),
-        filename: 'shoppingPathsHandler.js'
+        filename: '[name].js'
     }
 }

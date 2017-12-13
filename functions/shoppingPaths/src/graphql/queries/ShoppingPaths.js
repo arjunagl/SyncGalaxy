@@ -1,2 +1,0 @@
-import ShoppingPathType from './ShoppingPathType';
-

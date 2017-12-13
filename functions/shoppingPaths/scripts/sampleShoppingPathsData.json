@@ -1,0 +1,58 @@
+{
+    "SyncGalaxy-ShoppingPaths-tblShoppingPaths": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "spp1"
+                    },
+                    "name": {
+                        "S": "Fruits"
+                    },
+                    "userId": {
+                        "S": "user1"
+                    },
+                    "storeId": {
+                        "S": "Coles"
+                    },
+                    "completed": {
+                        "BOOL": true
+                    },
+                    "dateCreated": {
+                        "S": "1/12/2017"
+                    },
+                    "shoppingItems": {
+                        "S": "[{id: 'ap1',name: 'apples',pickedUp: true}, {id: 'or1',name: 'oranges',pickedUp: true}]"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "Id": {
+                        "S": "spp2"
+                    },
+                    "name": {
+                        "S": "Vegetables"
+                    },
+                    "userId": {
+                        "S": "user1"
+                    },
+                    "storeId": {
+                        "S": "Coles"
+                    },
+                    "completed": {
+                        "BOOL": true
+                    },
+                    "dateCreated": {
+                        "S": "1/12/2017"
+                    },
+                    "shoppingItems": {
+                        "S": "[{id: 'cr1',name: 'carrots',pickedUp: true}, {id: 'be1',name: 'beans',pickedUp: true}]"
+                    }
+                }
+            }
+        }
+    ]
+}
