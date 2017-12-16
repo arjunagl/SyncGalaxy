@@ -13,24 +13,9 @@ const ShoppingPathQuery = new GraphQLObjectType({
             },
             resolve: function (_, { userId }) {
                 getShoppingPathsForUser(userId, (response) => {
-                    console.log(`Response received = ${response}`);
+                    console.log(`Response received = ${JSON.stringify(response)}`);
                     return response;
                 });
-                // return {
-                //     id: '1',
-                //     name: 'shoppingPath1',
-                //     userId: 'user1',
-                //     storeId: 'store1',
-                //     completed: true,
-                //     dateCreated: '1/12/2017',
-                //     shoppingItems: [
-                //         {
-                //             id: 'ap1',
-                //             name: 'apples',
-                //             pickedUp: true
-                //         }
-                //     ]
-                // };
             }
         }
     }

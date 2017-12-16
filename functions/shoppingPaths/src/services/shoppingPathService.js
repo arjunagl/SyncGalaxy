@@ -17,10 +17,10 @@ const getShoppingPathsForUser = (userId, callback) => {
 
     docClient.scan(tableQueryParams, (err, shoppingPaths) => {
         if (err) {
-            callback(err);
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+            callback(err);
         }
-        console.log(`Successfully loaded shopping paths for userid = ${userId} with shoppingPaths = ${shoppingPaths.Items}`);
+        console.log(`Successfully loaded shopping paths for userid = ${userId}`);
         callback(shoppingPaths.Items);
     });
 }
