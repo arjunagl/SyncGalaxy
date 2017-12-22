@@ -7,11 +7,11 @@ const ShoppingPathQuery = new GraphQLObjectType({
     fields: {
         ShoppingPath: {
             type: ShoppingPathType,
-            // `args` describes the arguments that the `user` query accepts
             args: {
                 userId: { type: GraphQLString }
             },
             resolve: function (_, { userId }) {
+                console.log('resolving...');
                 getShoppingPathsForUser(userId, (response) => {
                     console.log(`Response received = ${JSON.stringify(response)}`);
                     return response;

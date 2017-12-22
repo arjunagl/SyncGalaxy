@@ -1,9 +1,8 @@
-import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql'
+import { GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql'
 import ShoppingPathItemType from './ShoppingItemType';
 
 describe('ShoppingPathItemType', () => {
-    it('Should have the proper fields', () => {
-        console.log(ShoppingPathItemType instanceof GraphQLObjectType);
+    it('Should have the proper fields', () => {        
         const shoppingPathItemTypeFields = ShoppingPathItemType.getFields();
         expect(shoppingPathItemTypeFields).toHaveProperty('id');
         expect(shoppingPathItemTypeFields).toHaveProperty('id.type', GraphQLID);

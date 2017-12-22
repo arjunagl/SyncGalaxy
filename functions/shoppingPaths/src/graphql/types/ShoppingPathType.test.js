@@ -4,8 +4,7 @@ import ShoppingPathType from './ShoppingPathType';
 
 
 describe('ShoppingPathType', () => {
-    it('Should have the proper fields', () => {
-        console.log(ShoppingPathType instanceof GraphQLObjectType);
+    it('Should have the proper fields', () => {        
         const shoppingPathItemTypeFields = ShoppingPathType.getFields();
         expect(shoppingPathItemTypeFields).toHaveProperty('id');
         expect(shoppingPathItemTypeFields).toHaveProperty('id.type', GraphQLID);
@@ -25,7 +24,8 @@ describe('ShoppingPathType', () => {
         expect(shoppingPathItemTypeFields).toHaveProperty('dateCreated');
         expect(shoppingPathItemTypeFields).toHaveProperty('dateCreated.type', GraphQLString);
 
-        // expect(shoppingPathItemTypeFields).toHaveProperty('shoppingItems');
-        // expect(shoppingPathItemTypeFields).toHaveProperty('shoppingItems.type', GraphQLList(ShoppingItemType));
+        expect(shoppingPathItemTypeFields).toHaveProperty('shoppingItems');        
+        expect(shoppingPathItemTypeFields).toHaveProperty('shoppingItems.type', new GraphQLList(ShoppingItemType));
+
     });
 });
