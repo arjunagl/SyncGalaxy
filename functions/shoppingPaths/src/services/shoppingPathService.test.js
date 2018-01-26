@@ -30,7 +30,7 @@ describe('shoppingPathService', () => {
             });
         });
 
-        getShoppingPathsForUser('testUser', (shoppingPaths) => {
+        getShoppingPathsForUser('testUser', (err, shoppingPaths) => {
             expect(shoppingPaths).toEqual(sampleShoppingPaths);
             done();
         });

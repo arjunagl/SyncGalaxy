@@ -10,12 +10,24 @@ const ShoppingPathQuery = new GraphQLObjectType({
             args: {
                 userId: { type: GraphQLString }
             },
+            // resolve: function (_, { userId }) {
+            //     console.log('resolving...');
+            //     getShoppingPathsForUser(userId, (response) => {
+            //         console.log(`Response received = ${JSON.stringify(response)}`);
+            //         return response;
+            //     });
+            // }
             resolve: function (_, { userId }) {
-                console.log('resolving...');
-                getShoppingPathsForUser(userId, (response) => {
-                    console.log(`Response received = ${JSON.stringify(response)}`);
-                    return response;
-                });
+                return new Promise((resolve, reject) => {
+                    console.log('Loading shopping paths for user');
+                    getShoppingPathsForUser(userId, (err, response) => {
+                        console.log(`Response received = ${JSON.stringify(response)}`);
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(response);
+                    });
+                })
             }
         }
     }

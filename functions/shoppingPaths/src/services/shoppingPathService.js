@@ -21,7 +21,7 @@ const getShoppingPathsForUser = (userId, callback) => {
             callback(err);
         }
         console.log(`Successfully loaded shopping paths for userid = ${userId}`);
-        callback(shoppingPaths.Items);
+        callback(null, shoppingPaths.Items);
     });
 }
 
