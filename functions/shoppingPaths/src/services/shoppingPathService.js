@@ -20,7 +20,7 @@ const getShoppingPathsForUser = (userId, callback) => {
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
             callback(err);
         }
-        console.log(`Successfully loaded shopping paths for userid = ${userId}`);
+        console.log(`Successfully loaded shopping paths for userid = ${userId} with shopping paths ${JSON.stringify(shoppingPaths.Items.length)}`);
         callback(null, shoppingPaths.Items);
     });
 }

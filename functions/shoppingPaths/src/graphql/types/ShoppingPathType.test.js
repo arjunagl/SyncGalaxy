@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLID, GraphQLList } from 'graphql'
+import { GraphQLBoolean, GraphQLString, GraphQLID, GraphQLList } from 'graphql'
 import ShoppingItemType from './ShoppingItemType';
 import ShoppingPathType from './ShoppingPathType';
 
