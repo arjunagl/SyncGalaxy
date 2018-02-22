@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  ShoppingPaths:
+  Post:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: SyncGalaxy-fnShoppingPaths
@@ -17,7 +17,19 @@ Resources:
           Type: Api
           Properties:
             Path: /SyncGalaxy/ShoppingPaths
-            Method: get      
+            Method: post      
+  Options:
+    Type: AWS::Serverless::Function
+    Properties:                     
+      FunctionName: SyncGalaxy-fnShoppingPaths-Options
+      Handler: shoppingPathsHandler.getOptions
+      Runtime: nodejs6.10
+      Events:
+        GetOptions:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/ShoppingPaths
+            Method: options                           
   ShoppingPathsTable:
     Type: AWS::DynamoDB::Table
     Properties: 
