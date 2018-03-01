@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: {
@@ -9,7 +10,16 @@ module.exports = {
     watch: false,
     target: 'node',
     externals: [nodeExternals({
-        whitelist: ['graphql', 'iterall']
+        whitelist: [
+            'graphql',
+            'iterall',
+            'apollo-server-lambda',
+            'apollo-server-core',
+            'apollo-server-module-graphiql',
+            'graphql-extensions',
+            'apollo-tracing',
+            'apollo-cache-control'
+        ]
     })],
     module: {
         rules: [{
@@ -17,10 +27,14 @@ module.exports = {
             use: 'babel-loader'
         }]
     },
-    plugins: [        
+    plugins: [
         new CopyWebpackPlugin([
             'config/shoppingPathsSAM.yaml'
-        ])
+        ]),
+        new BundleAnalyzerPlugin({
+            openAnalyzer: false,
+            analyzerMode: 'static'
+        })
     ],
     output: {
         libraryTarget: 'commonjs',
