@@ -25,4 +25,8 @@ const getShoppingPathsForUser = (userId, callback) => {
     });
 }
 
-export { getShoppingPathsForUser };
+const getShoppingPath = (shoppingPathId) => {
+    console.log(`Getting shopping path for shopping path id = ${shoppingPathId}`);
+}
+
+export { getShoppingPathsForUser, getShoppingPath };

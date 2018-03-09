@@ -6,7 +6,7 @@ const ShoppingPathType = new GraphQLObjectType({
     description: 'ShoppingPath Type, For all the shopping paths the user has been involved in.',
 
     fields: () => ({
-        id: {
+        Id: {
             type: GraphQLID,
             description: 'ID of the shopping path',
         },
