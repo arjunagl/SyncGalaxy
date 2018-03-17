@@ -4,7 +4,7 @@ import { getShoppingPathsForUser, getShoppingPath } from '../../services/shoppin
 
 const ShoppingPathQuery = new GraphQLObjectType({
     name: 'Query',
-    fields: {
+    fields: () => ({
         ShoppingPaths: {
             type: new GraphQLList(ShoppingPathType),
             args: {
@@ -35,13 +35,14 @@ const ShoppingPathQuery = new GraphQLObjectType({
                         console.log(`Response received = ${JSON.stringify(response)}`);
                         if (err) {
                             reject(err);
+                            console.log('Error in obtaining shopping path by id');
                         }
                         resolve(response);
                     });
                 })
             }
         }
-    }
+    })
 });
 
 export default ShoppingPathQuery;

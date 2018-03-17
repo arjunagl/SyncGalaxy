@@ -22,7 +22,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{id: 'ap1',name: 'apples',pickedUp: true}, {id: 'or1',name: 'oranges',pickedUp: true}]"
+                        "S": "[{\"id\": \"ap1\",\"name\": \"apples\",\"pickedUp\": true},{\"id\": \"or1\",\"name\": \"oranges\",\"pickedUp\": true}]"
                     }
                 }
             }
@@ -49,7 +49,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{id: 'cr1',name: 'carrots',pickedUp: true}, {id: 'be1',name: 'beans',pickedUp: true}]"
+                        "S": "[{\"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true},{\"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true}]"
                     }
                 }
             }
@@ -58,7 +58,7 @@
             "PutRequest": {
                 "Item": {
                     "Id": {
-                        "S": "spp2"
+                        "S": "spp3"
                     },
                     "name": {
                         "S": "Drinks"
@@ -76,7 +76,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{id: 'cr1',name: 'carrots',pickedUp: true}, {id: 'be1',name: 'beans',pickedUp: true}]"
+                        "S": "[{ \"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true},{ \"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true}]"
                     }
                 }
             }

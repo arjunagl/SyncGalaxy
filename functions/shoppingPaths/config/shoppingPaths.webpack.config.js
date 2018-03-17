@@ -18,7 +18,8 @@ module.exports = {
             'apollo-server-module-graphiql',
             'graphql-extensions',
             'apollo-tracing',
-            'apollo-cache-control'
+            'apollo-cache-control',
+            'lodash/head'
         ]
     })],
     module: {
