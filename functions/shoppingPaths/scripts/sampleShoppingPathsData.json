@@ -22,7 +22,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{\"id\": \"ap1\",\"name\": \"apples\",\"pickedUp\": true},{\"id\": \"or1\",\"name\": \"oranges\",\"pickedUp\": true}]"
+                        "S": "[{\"id\": \"ap1\",\"name\": \"apples\",\"pickedUp\": true, \"location\": \"Isle 1\", \"locationHint\": \"Near the fruits\", \"locationOrder\": 1},{\"id\": \"or1\",\"name\": \"oranges\",\"pickedUp\": true, \"location\": \"Isle 2\", \"locationHint\": \"Near the fruits\", \"locationOrder\": 2}]"
                     }
                 }
             }
@@ -49,7 +49,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{\"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true},{\"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true}]"
+                        "S": "[{\"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true, \"location\": \"Isle 1\", \"locationHint\": \"Near the vegetables\", \"locationOrder\": 1},{\"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true, \"location\": \"Isle 1\", \"locationHint\": \"Near the vegetables\", \"locationOrder\": 2}]"
                     }
                 }
             }
@@ -76,7 +76,7 @@
                         "S": "1/12/2017"
                     },
                     "shoppingItems": {
-                        "S": "[{ \"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true},{ \"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true}]"
+                        "S": "[{ \"id\": \"cr1\",\"name\": \"carrots\",\"pickedUp\": true, \"location\": \"Isle 1, \"locationHint\": \"Near the vegetables\", \"locationOrder\": 1},{ \"id\": \"be1\",\"name\": \"beans\",\"pickedUp\": true, \"location\": \"Isle 1\", \"locationHint\": \"Near the vegetables\", \"locationOrder\": 2}]"
                     }
                 }
             }

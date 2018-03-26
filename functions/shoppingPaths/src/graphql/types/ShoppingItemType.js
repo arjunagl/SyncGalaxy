@@ -1,4 +1,4 @@
-import { GraphQLBoolean, GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql'
+import { GraphQLBoolean, GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql'
 
 const ShoppingPathItemType = new GraphQLObjectType({
     name: 'ShoppingPathItem',
@@ -15,6 +15,18 @@ const ShoppingPathItemType = new GraphQLObjectType({
         pickedUp: {
             type: GraphQLBoolean,
             description: 'Indication if this item was picked up or not, true if the item was picked up'
+        },
+        location: {
+            type: GraphQLString,
+            description: 'Description of the location of the item'
+        },
+        locationHint: {
+            type: GraphQLString,
+            description: 'A small hint where applicable to find the item'
+        },
+        locationOrder: {
+            type: GraphQLInt,
+            description: 'Order in which the items should be sorted'
         }
     })
 });
