@@ -18,10 +18,13 @@ const ShoppingPathsMutation = new GraphQLObjectType({
                     updateShoppingPath(shoppingPath, (err, updatedShoppingPath) => {
                         if (err) {
                             console.log('Error in updating shopping path');
-                            return reject(err);
+                            return reject(err); JSON.stringify
                         }
+                        if (updatedShoppingPath) {
+                            updatedShoppingPath.shoppingItems = JSON.parse(updatedShoppingPath.shoppingItems);
+                        }
+                        return resolve(updatedShoppingPath);
                     });
-                    resolve(updatedShoppingPath);
                 });
             }
         }
