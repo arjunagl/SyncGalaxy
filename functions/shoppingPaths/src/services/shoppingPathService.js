@@ -56,4 +56,31 @@ const getShoppingPath = (shoppingPathId, callback) => {
     });
 }
 
-export { getShoppingPathsForUser, getShoppingPath };
+const updateShoppingPath = (shoppingPath, callback) => {
+    console.log(`Updating shopping path = ${JSON.stringify(shoppingPath)}`);
+    AWS.config.update({ region: process.env.AWS_DEFAULT_REGION });
+    const docClient = new AWS.DynamoDB.DocumentClient();
+
+    const tableUpdateParams = {
+        TableName: process.env.ShoppingPathsTable,
+        Key: {
+            Id: shoppingPath.Id
+        },
+        UpdateExpression: 'set shoppingItems = :si',
+        ExpressionAttributeValues: {
+            ':si': JSON.stringify(shoppingPath.shoppingItems)
+        },
+        ReturnValues: "ALL_NEW"
+    }
+
+    docClient.update(tableUpdateParams, (err, shoppingPath) => {
+        if (err) {
+            console.error("Unable to udpate shopping path. Error JSON:", JSON.stringify(err, null, 2));
+            return callback(err);
+        }
+        console.log(`Successfully updated the shopping path = ${JSON.stringify(shoppingPath.Attributes)}`);
+        callback(null, shoppingPath.Attributes);
+    });
+}
+
+export { getShoppingPathsForUser, getShoppingPath, updateShoppingPath };

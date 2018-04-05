@@ -34,8 +34,8 @@ const ShoppingPathQuery = new GraphQLObjectType({
                     getShoppingPath(Id, (err, response) => {
                         console.log(`Response received = ${JSON.stringify(response)}`);
                         if (err) {
-                            reject(err);
                             console.log('Error in obtaining shopping path by id');
+                            return reject(err);
                         }
                         resolve(response);
                     });

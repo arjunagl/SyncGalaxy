@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLString } from 'graphql';
-import ShoppingPathType from '../types/ShoppingPathType';
+import ShoppingPathType, { ShoppingPathInputType } from '../types/ShoppingPathType';
+import { updateShoppingPath } from '../../services/shoppingPathService';
 
 const ShoppingPathsMutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -7,15 +8,20 @@ const ShoppingPathsMutation = new GraphQLObjectType({
         UpdateShoppingPath: {
             type: ShoppingPathType,
             args: {
-                shoppingPath: { type: GraphQLString }
+                shoppingPath: { type: ShoppingPathInputType }
             },
             resolve: function (_, { shoppingPath }) {
-                console.log(`Updating shopping path: ${shoppingPath}`);
                 return new Promise((resolve, reject) => {
                     if (!shoppingPath) {
                         return reject('Must supply a shopping path');
                     }
-                    resolve(shoppingPath);
+                    updateShoppingPath(shoppingPath, (err, updatedShoppingPath) => {
+                        if (err) {
+                            console.log('Error in updating shopping path');
+                            return reject(err);
+                        }
+                    });
+                    resolve(updatedShoppingPath);
                 });
             }
         }
