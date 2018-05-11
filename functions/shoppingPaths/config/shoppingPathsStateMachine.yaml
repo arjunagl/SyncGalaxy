@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  Post:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: SyncGalaxy-fnShoppingPaths
+      Handler: shoppingPathsHandler.getShoppingPaths
+      Runtime: nodejs6.10
+      Policies: [AmazonDynamoDBReadOnlyAccess, AmazonS3ReadOnlyAccess]
+      Environment:
+        Variables: 
+          S3_BUCKET: SyncGalaxy-ShoppingPaths-bucket
+          ShoppingPathsTable: SyncGalaxy-ShoppingPaths-tblShoppingPaths
+      Events:
+        GetShoppingPaths:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/ShoppingPaths
+            Method: post      
+  Options:
+    Type: AWS::Serverless::Function
+    Properties:                     
+      FunctionName: SyncGalaxy-fnShoppingPaths-Options
+      Handler: shoppingPathsHandler.getOptions
+      Runtime: nodejs6.10
+      Events:
+        GetOptions:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/ShoppingPaths
+            Method: options                           
+  ShoppingPathsTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: SyncGalaxy-ShoppingPaths-tblShoppingPaths
+      AttributeDefinitions: 
+        - AttributeName: Id
+          AttributeType: S   
+      KeySchema: 
+        - AttributeName: Id
+          KeyType: HASH   
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5       
+      StreamSpecification:
+        StreamViewType: KEYS_ONLY                
+  StatesExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - !Sub states.${AWS::Region}.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource: "*"
+
+  MyStateMachine:
+    Type: "AWS::StepFunctions::StateMachine"
+    Properties:
+      DefinitionString:
+        !Sub
+          - |-
+            {
+              "Comment": "A Hello World AWL example using an AWS Lambda function",
+              "StartAt": "HelloWorld",
+              "States": {
+                "HelloWorld": {
+                  "Type": "Task",
+                  "Resource": "${lambdaArn}",
+                  "End": true
+                }
+              }
+            }
+          - {lambdaArn: !GetAtt [ Post, Arn ]}
+      RoleArn: !GetAtt [ StatesExecutionRole, Arn ]

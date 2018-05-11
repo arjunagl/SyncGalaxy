@@ -30,7 +30,8 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([
-            'config/shoppingPathsSAM.yaml'
+            'config/shoppingPathsSAM.yaml',
+            'config/shoppingPathsStateMachine.yaml'
         ]),
         new BundleAnalyzerPlugin({
             openAnalyzer: false,
