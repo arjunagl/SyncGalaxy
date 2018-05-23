@@ -67,17 +67,17 @@ Resources:
                   - "lambda:InvokeFunction"
                 Resource: "*"
 
-  MyStateMachine:
+  UpdateShoppingPathStepFunction:
     Type: "AWS::StepFunctions::StateMachine"
     Properties:
       DefinitionString:
         !Sub
           - |-
             {
-              "Comment": "A Hello World AWL example using an AWS Lambda function",
-              "StartAt": "HelloWorld",
+              "Comment": "State machine to update the shopping path",
+              "StartAt": "UpdatePath",
               "States": {
-                "HelloWorld": {
+                "UpdatePath": {
                   "Type": "Task",
                   "Resource": "${lambdaArn}",
                   "End": true
@@ -86,3 +86,59 @@ Resources:
             }
           - {lambdaArn: !GetAtt [ Post, Arn ]}
       RoleArn: !GetAtt [ StatesExecutionRole, Arn ]
+  SyncGalaxyRestApi:
+    Type: "AWS::ApiGateway::RestApi"
+    Properties:
+      Name: "SyncGalaxy"  
+  ShoppingPathResource:
+    Type: "AWS::ApiGateway::Resource"
+    Properties: 
+      RestApiId: 
+        Ref: "SyncGalaxyRestApi"
+      ParentId: 
+        Fn::GetAtt: 
+          - "SyncGalaxyRestApi"
+          - "RootResourceId"
+      PathPart: "ShoppingPaths"  
+  # UpdateShoppingPathMethod: 
+  #   Type: "AWS::ApiGateway::Method"
+  #   Properties: 
+  #     HttpMethod: "POST"
+  #     ResourceId: !GetAtt SyncGalaxyRestApi.RootResourceId
+  #     RestApiId: !Ref "SyncGalaxyRestApi"
+  #     AuthorizationType: "NONE"
+  #     Integration: 
+  #       Type: "MOCK"
+  # MockMethod: 
+  #   Type: "AWS::ApiGateway::Method"
+  #   Properties: 
+  #     OperationName: "GetShoppingPaths"
+  #     RestApiId: 
+  #       Ref: "SyncGalaxyRestApi"
+  #     ResourceId: 
+  #       Ref: "ShoppingPathResource"
+  #     HttpMethod: "POST"
+  #     AuthorizationType: "NONE"
+  #     Integration: 
+  #       Type: "MOCK"       
+  GetShoppingPaths: 
+    Type: "AWS::ApiGateway::Method"
+    Properties: 
+      OperationName: "GetShoppingPaths"
+      RestApiId: !Ref "SyncGalaxyRestApi"
+      ResourceId: !Ref "ShoppingPathResource"
+      HttpMethod: "POST"
+      AuthorizationType: "NONE"
+      Integration: 
+        Credentials: !GetAtt [ StatesExecutionRole, Arn ]
+        IntegrationHttpMethod: POST
+        Type: "AWS"   
+        Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:states:action/StartExecution'
+        IntegrationResponses:
+          - StatusCode: 200
+        RequestTemplates:
+          application/json: !Sub |
+            {
+              "input": "$util.escapeJavaScript($input.json('$'))",
+              "stateMachineArn": "${UpdateShoppingPathStepFunction}"
+            }
