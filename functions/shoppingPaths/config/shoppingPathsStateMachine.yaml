@@ -12,24 +12,24 @@ Resources:
         Variables: 
           S3_BUCKET: SyncGalaxy-ShoppingPaths-bucket
           ShoppingPathsTable: SyncGalaxy-ShoppingPaths-tblShoppingPaths
-      Events:
-        GetShoppingPaths:
-          Type: Api
-          Properties:
-            Path: /SyncGalaxy/ShoppingPaths
-            Method: post      
+      # Events:
+      #   GetShoppingPaths:
+      #     Type: Api
+      #     Properties:
+      #       Path: /SyncGalaxy/ShoppingPaths
+      #       Method: post      
   Options:
     Type: AWS::Serverless::Function
     Properties:                     
       FunctionName: SyncGalaxy-fnShoppingPaths-Options
       Handler: shoppingPathsHandler.getOptions
       Runtime: nodejs6.10
-      Events:
-        GetOptions:
-          Type: Api
-          Properties:
-            Path: /SyncGalaxy/ShoppingPaths
-            Method: options                           
+      # Events:
+      #   GetOptions:
+      #     Type: Api
+      #     Properties:
+      #       Path: /SyncGalaxy/ShoppingPaths
+      #       Method: options                           
   ShoppingPathsTable:
     Type: AWS::DynamoDB::Table
     Properties: 
@@ -58,7 +58,7 @@ Resources:
             Action: "sts:AssumeRole"
       Path: "/"
       Policies:
-        - PolicyName: StatesExecutionPolicy
+        - PolicyName: LambdaExecutionPolicy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -66,7 +66,27 @@ Resources:
                 Action:
                   - "lambda:InvokeFunction"
                 Resource: "*"
-
+  APIGatewayExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: StateExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "states:StartExecution"
+                Resource: "*"                
   UpdateShoppingPathStepFunction:
     Type: "AWS::StepFunctions::StateMachine"
     Properties:
@@ -86,51 +106,30 @@ Resources:
             }
           - {lambdaArn: !GetAtt [ Post, Arn ]}
       RoleArn: !GetAtt [ StatesExecutionRole, Arn ]
-  SyncGalaxyRestApi:
+  ShoppingPathsRestApi:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
-      Name: "SyncGalaxy"  
+      Name: "SyncGalaxy-ShoppingPaths"  
   ShoppingPathResource:
     Type: "AWS::ApiGateway::Resource"
     Properties: 
       RestApiId: 
-        Ref: "SyncGalaxyRestApi"
+        Ref: "ShoppingPathsRestApi"
       ParentId: 
         Fn::GetAtt: 
-          - "SyncGalaxyRestApi"
+          - "ShoppingPathsRestApi"
           - "RootResourceId"
-      PathPart: "ShoppingPaths"  
-  # UpdateShoppingPathMethod: 
-  #   Type: "AWS::ApiGateway::Method"
-  #   Properties: 
-  #     HttpMethod: "POST"
-  #     ResourceId: !GetAtt SyncGalaxyRestApi.RootResourceId
-  #     RestApiId: !Ref "SyncGalaxyRestApi"
-  #     AuthorizationType: "NONE"
-  #     Integration: 
-  #       Type: "MOCK"
-  # MockMethod: 
-  #   Type: "AWS::ApiGateway::Method"
-  #   Properties: 
-  #     OperationName: "GetShoppingPaths"
-  #     RestApiId: 
-  #       Ref: "SyncGalaxyRestApi"
-  #     ResourceId: 
-  #       Ref: "ShoppingPathResource"
-  #     HttpMethod: "POST"
-  #     AuthorizationType: "NONE"
-  #     Integration: 
-  #       Type: "MOCK"       
+      PathPart: "ShoppingPaths"    
   GetShoppingPaths: 
     Type: "AWS::ApiGateway::Method"
     Properties: 
+      AuthorizationType: "NONE"
       OperationName: "GetShoppingPaths"
-      RestApiId: !Ref "SyncGalaxyRestApi"
+      RestApiId: !Ref "ShoppingPathsRestApi"
       ResourceId: !Ref "ShoppingPathResource"
       HttpMethod: "POST"
-      AuthorizationType: "NONE"
       Integration: 
-        Credentials: !GetAtt [ StatesExecutionRole, Arn ]
+        Credentials: !GetAtt [ APIGatewayExecutionRole, Arn ]
         IntegrationHttpMethod: POST
         Type: "AWS"   
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:states:action/StartExecution'
@@ -142,3 +141,25 @@ Resources:
               "input": "$util.escapeJavaScript($input.json('$'))",
               "stateMachineArn": "${UpdateShoppingPathStepFunction}"
             }
+  OptionsMethod:
+    DependsOn: "Options"
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationType: "None"
+      OperationName: "OPTIONS"
+      RestApiId: !Ref "ShoppingPathsRestApi"
+      ResourceId: !Ref "ShoppingPathResource"
+      HttpMethod: "OPTIONS"
+      Integration: 
+        Credentials: !GetAtt [ APIGatewayExecutionRole, Arn ]
+        IntegrationHttpMethod: GET
+        Type: "AWS"
+        Uri:  !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Options.Arn}/invocations
+  Deployment: 
+    DependsOn: "GetShoppingPaths"
+    Type: "AWS::ApiGateway::Deployment"
+    Properties: 
+      RestApiId: !Ref "ShoppingPathsRestApi"
+      Description: "Dev deployment"
+      StageName: "DevStage"            
+  

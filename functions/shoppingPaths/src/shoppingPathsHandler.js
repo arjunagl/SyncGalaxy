@@ -2,6 +2,7 @@ import { graphqlLambda } from 'apollo-server-lambda';
 import ShoppingPathSchema from './graphql/schemas/ShoppingPathSchema';
 
 const getShoppingPaths = (event, context, callback) => {
+    console.log('Getting/Updating shopping paths...')
     const handler = graphqlLambda({ schema: ShoppingPathSchema });
     return handler(event, context, (error, output) => {
         output.headers['Access-Control-Allow-Origin'] = '*';        
@@ -10,6 +11,7 @@ const getShoppingPaths = (event, context, callback) => {
 }
 
 const getOptions = (event, context, callback) => {
+    console.log('getting options');
     const response = {
         statusCode: 200,
         headers: {
