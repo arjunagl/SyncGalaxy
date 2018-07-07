@@ -24,12 +24,12 @@ Resources:
       FunctionName: SyncGalaxy-fnShoppingPaths-Options
       Handler: shoppingPathsHandler.getOptions
       Runtime: nodejs6.10
-      # Events:
-      #   GetOptions:
-      #     Type: Api
-      #     Properties:
-      #       Path: /SyncGalaxy/ShoppingPaths
-      #       Method: options                           
+      Events:
+        GetOptions:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/ShoppingPaths
+            Method: options                           
   ShoppingPathsTable:
     Type: AWS::DynamoDB::Table
     Properties: 
@@ -86,6 +86,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - "states:StartExecution"
+                  - "lambda:InvokeFunction"
                 Resource: "*"                
   UpdateShoppingPathStepFunction:
     Type: "AWS::StepFunctions::StateMachine"
@@ -149,11 +150,11 @@ Resources:
       OperationName: "OPTIONS"
       RestApiId: !Ref "ShoppingPathsRestApi"
       ResourceId: !Ref "ShoppingPathResource"
-      HttpMethod: "OPTIONS"
+      HttpMethod: "Options"
       Integration: 
         Credentials: !GetAtt [ APIGatewayExecutionRole, Arn ]
         IntegrationHttpMethod: GET
-        Type: "AWS"
+        Type: "AWS_PROXY"
         Uri:  !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Options.Arn}/invocations
   Deployment: 
     DependsOn: "GetShoppingPaths"
