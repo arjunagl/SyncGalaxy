@@ -1,6 +1,6 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql';
-import ShoppingPathType, { ShoppingPathInputType } from '../types/ShoppingPathType';
+import { GraphQLObjectType } from 'graphql';
 import { updateShoppingPath } from '../../services/shoppingPathService';
+import ShoppingPathType, { ShoppingPathInputType } from '../types/ShoppingPathType';
 
 const ShoppingPathsMutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -18,7 +18,7 @@ const ShoppingPathsMutation = new GraphQLObjectType({
                     updateShoppingPath(shoppingPath, (err, updatedShoppingPath) => {
                         if (err) {
                             console.log('Error in updating shopping path');
-                            return reject(err); JSON.stringify
+                            return reject(err); 
                         }
                         if (updatedShoppingPath) {
                             updatedShoppingPath.shoppingItems = JSON.parse(updatedShoppingPath.shoppingItems);

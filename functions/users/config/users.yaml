@@ -17,7 +17,19 @@ Resources:
           Type: Api
           Properties:
             Path: /SyncGalaxy/Users
-            Method: post                              
+            Method: post   
+  Options:
+    Type: AWS::Serverless::Function
+    Properties:                     
+      FunctionName: SyncGalaxy-fnShoppingPaths-Options
+      Handler: usersHandler.getOptions
+      Runtime: nodejs6.10
+      Events:
+        GetOptions:
+          Type: Api
+          Properties:
+            Path: /SyncGalaxy/Users
+            Method: options                                          
   UsersTable:
     Type: AWS::DynamoDB::Table
     Properties: 

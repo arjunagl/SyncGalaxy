@@ -10,7 +10,7 @@ const getShoppingPaths = (event, context, callback) => {
     });
 }
 
-const getOptions = (event, context, callback) => {
+const getOptions = (_event, _context, callback) => {
     console.log('getting options');
     const response = {
         statusCode: 200,

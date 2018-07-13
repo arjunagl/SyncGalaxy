@@ -1,10 +1,9 @@
 import { GraphQLSchema } from 'graphql';
-import ShoppingPathQuery from '../queries/ShoppingPathsQuery'
-import ShoppingPathMutation from '../queries/ShoppingPathMutation';
+import {UserQuery, UserMutation} from '../queries/userMutation';
 
-const ShoppingPathSchema = new GraphQLSchema({
-    query: ShoppingPathQuery,
-    mutation: ShoppingPathMutation
+const UserSchema = new GraphQLSchema({
+    query: UserQuery,
+    mutation: UserMutation
 });
 
-export default ShoppingPathSchema;
+export default UserSchema;
