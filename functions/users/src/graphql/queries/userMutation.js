@@ -1,41 +1,12 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql';
-import UserType from '../types/userType';
-
-// const ShoppingPathsMutation = new GraphQLObjectType({
-//     name: 'Mutation',
-//     fields: () => ({
-//         UpdateShoppingPath: {
-//             type: ShoppingPathType,
-//             args: {
-//                 shoppingPath: { type: ShoppingPathInputType }
-//             },
-//             resolve: function (_, { shoppingPath }) {
-//                 return new Promise((resolve, reject) => {
-//                     if (!shoppingPath) {
-//                         return reject('Must supply a shopping path');
-//                     }
-//                     updateShoppingPath(shoppingPath, (err, updatedShoppingPath) => {
-//                         if (err) {
-//                             console.log('Error in updating shopping path');
-//                             return reject(err); JSON.stringify
-//                         }
-//                         if (updatedShoppingPath) {
-//                             updatedShoppingPath.shoppingItems = JSON.parse(updatedShoppingPath.shoppingItems);
-//                         }
-//                         return resolve(updatedShoppingPath);
-//                     });
-//                 });
-//             }
-//         }
-//     })
-// });
+import { UserType } from '../types/userType';
 
 const UserQuery = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
         User: {
             type: UserType,
-            resolve: function (_) {
+            resolve: (_) => {
                 // return new Promise((resolve, reject) => {
                 //     console.log('Registering new user from the Mutation');
                 //     // return new Promise((resolve, reject) => {
@@ -50,13 +21,8 @@ const UserQuery = new GraphQLObjectType({
                 //     // })
 
                 // });
-
-                return {
-                    Id: '1',
-                    firstName: 'a',
-                    lastName: 'b',
-                    email: 'a@b.com'
-                }
+                console.log('Resolving the user and returning a simple string');
+                return new UserType();
             }
         }
     })
