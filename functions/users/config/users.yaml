@@ -11,12 +11,12 @@ Resources:
         GetRequest:
           Type: Api
           Properties:
-            Path: /graphql
+            Path: /users/graphql
             Method: get
         PostRequest:
           Type: Api
           Properties:
-            Path: /graphql
+            Path: /users/graphql
             Method: post
   Options:
     Type: AWS::Serverless::Function
@@ -28,7 +28,7 @@ Resources:
         GetOptions:
           Type: Api
           Properties:
-            Path: /graphql
+            Path: /users/graphql
             Method: options              
   GraphQLInspector:
     Type: AWS::Serverless::Function
@@ -39,5 +39,5 @@ Resources:
         GetRequest:
           Type: Api
           Properties:
-            Path: /graphiql
+            Path: /users/graphiql
             Method: get

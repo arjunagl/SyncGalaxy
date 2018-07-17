@@ -18,5 +18,5 @@ import userSchema from './graphql/schemas/userSchema';
 
 export const graphqlHandler = graphqlLambda({ schema: userSchema });
 export const graphiqlHandler = graphiqlLambda({
-    endpointURL: '/Prod/graphql',
+    endpointURL: '/Prod/users/graphql',
 });
