@@ -1,48 +1,43 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  Post:
+  Users:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: SyncGalaxy-fnUsers
-      Handler: usersHandler.registerUser
+      FunctionName: Users
+      Handler: usersHandler.graphqlHandler
       Runtime: nodejs8.10
-      Policies: [AmazonDynamoDBReadOnlyAccess, AmazonS3ReadOnlyAccess]
-      Environment:
-        Variables: 
-          S3_BUCKET: SyncGalaxy-Users-bucket
-          UsersTable: SyncGalaxy-Users-tblUsers
       Events:
-        RegisterUser:
+        GetRequest:
           Type: Api
           Properties:
-            Path: /SyncGalaxy/Users
-            Method: post   
+            Path: /graphql
+            Method: get
+        PostRequest:
+          Type: Api
+          Properties:
+            Path: /graphql
+            Method: post
   Options:
     Type: AWS::Serverless::Function
     Properties:                     
-      FunctionName: SyncGalaxy-fnShoppingPaths-Options
+      FunctionName: Users-Options
       Handler: usersHandler.getOptions
-      Runtime: nodejs6.10
+      Runtime: nodejs8.10
       Events:
         GetOptions:
           Type: Api
           Properties:
-            Path: /SyncGalaxy/Users
-            Method: options                                          
-  UsersTable:
-    Type: AWS::DynamoDB::Table
-    Properties: 
-      TableName: SyncGalaxy-Users-tblUsers
-      AttributeDefinitions: 
-        - AttributeName: Id
-          AttributeType: S   
-      KeySchema: 
-        - AttributeName: Id
-          KeyType: HASH   
-      ProvisionedThroughput: 
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5       
-      StreamSpecification:
-        StreamViewType: KEYS_ONLY
-        
+            Path: /graphql
+            Method: options              
+  GraphQLInspector:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: usersHandler.graphiqlHandler
+      Runtime: nodejs8.10
+      Events:
+        GetRequest:
+          Type: Api
+          Properties:
+            Path: /graphiql
+            Method: get

@@ -1,21 +1,8 @@
-import { graphqlLambda } from 'apollo-server-lambda';
-import UserSchema from './graphql/schemas/userSchema';
-
-const registerUser = (event, context, callback) => {
-    console.log('Registering user...')
-    const handler = graphqlLambda({ schema: UserSchema });
-    return handler(event, context, (error, output) => {
-        output.headers['Access-Control-Allow-Origin'] = '*';
-        callback(error, output);
-    });
-}
-
-const getOptions = (event, context, callback) => {
-    console.log('getting options');
+export const getOptions = (_event, _context, callback) => {
     const response = {
         statusCode: 200,
         headers: {
-            'Access-Control-Allow-Origin': "*", // Required for CORS support to work,
+            'Access-Control-Allow-Origin': '*', // Required for CORS support to work,
             'Access-Control-Allow-Headers': 'content-type',
             'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
         },
@@ -24,6 +11,12 @@ const getOptions = (event, context, callback) => {
         }),
     };
     callback(null, response);
-}
+};
 
-export { registerUser, getOptions };
+import { graphqlLambda, graphiqlLambda } from 'apollo-server-lambda';
+import userSchema from './graphql/schemas/userSchema';
+
+export const graphqlHandler = graphqlLambda({ schema: userSchema });
+export const graphiqlHandler = graphiqlLambda({
+    endpointURL: '/Prod/graphql',
+});

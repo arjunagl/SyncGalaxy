@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql';
-import { UserType } from '../types/userType';
+import { UserType, UserTypeInput } from '../types/userType';
 
 const UserQuery = new GraphQLObjectType({
     name: 'Query',
@@ -21,8 +21,12 @@ const UserQuery = new GraphQLObjectType({
                 //     // })
 
                 // });
-                console.log('Resolving the user and returning a simple string');
-                return new UserType();
+                return {
+                    Id: '1',
+                    firstName: 'a',
+                    lastName: 'b',
+                    email: 'a@b'
+                };
             }
         }
     })
@@ -32,14 +36,14 @@ const UserQuery = new GraphQLObjectType({
 const UserMutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
-        RegisterUser: {
+        registerUser: {
             type: UserType,
             args: {
-                userDetails: { type: UserType }
+                userDetails: { type: UserTypeInput }
             },
             resolve: function (_, user) {
-                return new Promise((resolve, reject) => {
-                    console.log('Registering new user from the Mutation');
+                return new Promise((_resolve, _reject) => {
+                    console.log('Registering new user from the Mutation', user);
                     // return new Promise((resolve, reject) => {
                     //     console.log('Loading shopping paths for user');
                     //     getShoppingPathsForUser(userId, (err, response) => {

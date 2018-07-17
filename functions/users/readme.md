@@ -1,11 +1,21 @@
-This is the simple one to invoke it through the lambda console.
+This is how you invoke this in graphiql
 
-{
-  "key3": "value3",
-  "key2": "value2",
-  "key1": "value1",
-  "query": "{ShoppingPath(userId: \"user1\"){name}}"
+mutation registerUser($userDetails: UserInput!) {
+  registerUser(userDetails: $userDetails) {
+    Id,
+    firstName,
+    lastName,
+    email,
+    __typename
+  }
 }
 
-If you are sending this request from the browser through a get it will be something like this
-https://ebn2768gd0.execute-api.us-east-1.amazonaws.com/Stage/SyncGalaxy/ShoppingPaths?query={ShoppingPaths(userId: "user1"){name}}
+Variables section
+{
+  "userDetails": {
+   "Id": "1",
+    "firstName": "a",
+    "lastName": "b",
+    "email": "a@b"
+  }
+}
